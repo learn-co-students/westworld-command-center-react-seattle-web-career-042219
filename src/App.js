@@ -20,9 +20,11 @@ class App extends Component {
       fetch("http://localhost:4000/areas"),
       fetch("http://localhost:4000/hosts")
     ])
-      .then(([res1, res2]) => Promise.all(res1.json(), res2.json()))
+      .then(([res1, res2]) => Promise.all([res1.json(), res2.json()]))
       .then(([res1, res2]) => {
-        this.setState({ areas: res1, hosts: res2 });
+        return this.setState({ areas: res1, hosts: res2 }, () =>
+          console.log(this.state)
+        );
       })
       .catch(err => console.log(err));
   }
@@ -34,7 +36,7 @@ class App extends Component {
   };
 
   chooseActiveHosts = () => {
-    this.state.hosts.filter(host => host.active === true);
+    return this.state.hosts.filter(host => host.active === true);
   };
 
   render() {
@@ -45,6 +47,7 @@ class App extends Component {
           selectedHostId={this.state.selectedHostId}
           selectAHost={this.selectAHost}
           hosts={this.chooseActiveHosts()}
+          // hosts={this.state.hosts}
         />
         <Headquarters />
       </Segment>

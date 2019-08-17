@@ -1,13 +1,16 @@
 import React from "react";
 import "../stylesheets/Area.css";
+import HostList from "./HostList";
 
 const Area = props => (
-  <div className="area" id={props.area}>
-    <h3 className="labels">
-      {/* Don't just pass in the name from the data...clean that thing up */}
-    </h3>
-
-    {/* See Checkpoint 1 item 2 in the Readme for a clue as to what goes here */}
+  <div className="area" id={props.area.name}>
+    <h3 className="labels">{props.area.name}</h3>
+    <HostList
+      hosts={props.hosts}
+      selectedHostId={props.selectedHostId}
+      selectAHost={props.selectAHost}
+      // limit={props.area.limit}
+    />
   </div>
 );
 
