@@ -3,14 +3,8 @@ import { Segment, Image } from "semantic-ui-react";
 import * as Images from "../services/Images";
 import HostInfo from "./HostInfo";
 
-const Details = ({
-  hosts,
-  areas,
-  activateHost,
-  setArea,
-  selectedHost,
-  addLog
-}) => {
+//prettier-ignore
+const Details = ({ hosts, areas, selectedHost, activateAHost, setArea, addLog }) => {
   // We'll render the logo if no host is selected. But if a host does get selected....
   // Watch the video to see how this works in the app.
 
@@ -20,10 +14,10 @@ const Details = ({
         <HostInfo
           hosts={hosts}
           areas={areas}
-          activateHost={activateHost}
+          selectedHost={selectedHost}
+          activateAHost={activateAHost}
           setArea={setArea}
-          selectedHost={this.selectedHost()}
-          addLog={this.addLog}
+          addLog={addLog}
         />
       );
     } else {

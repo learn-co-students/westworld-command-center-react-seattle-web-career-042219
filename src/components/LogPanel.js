@@ -2,7 +2,8 @@ import React from "react";
 import { Segment, Button } from "semantic-ui-react";
 import { Log } from "../services/Log";
 
-const LogPanel = () => {
+//prettier-ignore
+const LogPanel = ({activateAllHosts, events, activatedAll, handleActivate, addLog}) => {
   const dummyLogs = () => {
     // This is just to show you how this should work. But where should the log data actually get stored?
     // And where should we be creating logs in the first place?
@@ -18,6 +19,19 @@ const LogPanel = () => {
     return logs;
   };
 
+  const handleClick=()=>{
+    console.log("handleClick fires")
+    if(activatedAll){
+      addLog(Log.notify(`Decommissioned all hosts.`))
+    } else {
+      addLog(Log.notify(`Activated all hosts.`))
+    }
+    handleActivate()
+  }
+
+  const color = activatedAll ? "green" : "red"
+  const activationStatusText = activatedAll ? "DECOMMISSION ALL" : "ACTIVATE ALL" 
+
   return (
     <Segment className="HQComps" id="logPanel">
       <pre>
@@ -27,14 +41,11 @@ const LogPanel = () => {
           </p>
         ))}
       </pre>
-
-      {/* Button below is the Activate All/Decommisssion All button */}
       <Button
         fluid
-        color={"red"}
-        // {/* This isn't always going to be the same color...*/}
-        content={"ACTIVATE ALL"}
-        // {/* Should the button always read "ACTIVATE ALL"? When should it read "DECOMMISSION ALL"? */}
+        color={color}
+        content={activationStatusText}
+        onClick={handleClick}
       />
     </Segment>
   );

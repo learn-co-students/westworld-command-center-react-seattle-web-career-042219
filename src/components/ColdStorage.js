@@ -5,7 +5,7 @@ import HostList from "./HostList";
 const ColdStorage = ({ hosts, selectAHost, selectedHostId }) => (
   <Segment.Group className="HQComps">
     <Segment compact>
-      <h3 className="labels">ColdStorage</h3>
+      <h3 className="labels">Cold Storage</h3>
     </Segment>
     <Segment compact>
       <HostList

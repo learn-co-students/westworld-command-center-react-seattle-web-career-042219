@@ -9,44 +9,41 @@ class Headquarters extends Component {
   // Remember, there's many ways to do this. This doesn't have to be a class component. It's up to you.
 
   state = {
-    activated: false,
+    activatedAll: false,
     logEvents: []
   };
 
   addLog = e => {
-    this.setState(prevState => ({ logEvents: [e, ...prevState.logEvents] }));
+    return this.setState(prevState => ({
+      logEvents: [e, ...prevState.logEvents]
+    }));
   };
 
-  handleActivate = e => {
+  handleActivate = () => {
     this.setState(
-      prevState => ({ activated: !prevState.activated }),
-      () => this.props.activateAll(this.state.activated)
+      prevState => ({ activatedAll: !prevState.activatedAll }),
+      () => this.props.activateAllHosts(this.state.activatedAll)
     );
   };
 
   selectedHost = () => {
-    this.props.hosts.find(host => host.id === this.props.selectedHostId);
+    return this.props.hosts.find(host => host.id === this.props.selectedHostId);
   };
 
   renderDecomissionedHosts = () => {
-    this.props.hosts.filter(host => !host.active);
+    return this.props.hosts.filter(host => !host.active);
   };
 
   render() {
-    const {
-      areas,
-      hosts,
-      selectedHostId,
-      selectAHost,
-      activateHost,
-      setArea
-    } = this.props;
+    //prettier-ignore
+    const { areas, hosts, selectedHostId, selectAHost, activateAHost, setArea } = this.props;
     return (
       <Grid celled="internally">
         <Grid.Column width={8}>
           {
             <ColdStorage
-              hosts={this.renderDecomissionedHosts()}
+              // hosts={this.renderDecomissionedHosts()}
+              hosts={this.props.hosts}
               selectAHost={selectAHost}
               selectedHostId={selectedHostId}
             />
@@ -56,7 +53,7 @@ class Headquarters extends Component {
           <Details
             hosts={hosts}
             areas={areas}
-            activateHost={activateHost}
+            activateAHost={activateAHost}
             setArea={setArea}
             selectedHost={this.selectedHost()}
             addLog={this.addLog}
@@ -65,9 +62,10 @@ class Headquarters extends Component {
         <Grid.Column width={3}>
           {
             <LogPanel
+              activateAllHosts={this.activateAllHosts}
               handleActivate={this.handleActivate}
               events={this.state.logEvents}
-              activated={this.state.activated}
+              activatedAll={this.state.activatedAll}
               addLog={this.addLog}
             />
           }

@@ -29,20 +29,12 @@ class App extends Component {
       .catch(err => console.log(err));
   }
 
-  selectAHost = selectedHostId => {
-    this.setState({ selectedHost: selectedHostId }, () =>
-      console.log(this.state)
-    );
+  selectAHost = selectedHostIdInput => {
+    this.setState({ selectedHostId: selectedHostIdInput });
   };
 
   chooseActiveHosts = () => {
     return this.state.hosts.filter(host => host.active === true);
-  };
-
-  activateAllHosts = activated => {
-    this.setState(prevState => ({
-      hosts: prevState.hosts.map(host => (host.active = activated))
-    }));
   };
 
   setArea = (id, areaName) => {
@@ -58,7 +50,7 @@ class App extends Component {
     );
   };
 
-  activateHost = id => {
+  activateAHost = id => {
     this.setState(prevState => ({
       hosts: prevState.hosts.forEach(host => {
         if (host.id === id) {
@@ -68,6 +60,18 @@ class App extends Component {
     }));
   };
 
+  activateAllHosts = activated => {
+    this.setState(
+      state => ({
+        hosts: state.hosts.map(host => {
+          host.active = activated;
+          return host;
+        })
+      }),
+      () => console.log(this.state.hosts)
+    );
+  };
+
   render() {
     return (
       <Segment id="app">
@@ -75,7 +79,7 @@ class App extends Component {
           areas={this.state.areas}
           selectedHostId={this.state.selectedHostId}
           selectAHost={this.selectAHost}
-          // hosts={this.chooseActiveHosts()}
+          hosts={this.chooseActiveHosts()}
           // hosts={this.state.hosts}
         />
         <Headquarters
@@ -84,9 +88,9 @@ class App extends Component {
           selectedHostId={this.state.selectedHostId}
           areas={this.state.areas}
           selectAHost={this.selectAHost}
-          activateHost={this.activateHost}
+          activateAHost={this.activateAHost}
           setArea={this.setArea}
-          activateAll={this.activateAll}
+          activateAllHosts={this.activateAllHosts}
         />
       </Segment>
     );
