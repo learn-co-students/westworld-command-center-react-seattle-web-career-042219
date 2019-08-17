@@ -34,30 +34,41 @@ class App extends Component {
   };
 
   chooseActiveHosts = () => {
+    console.log(this.state.hosts.filter(host => host.active === true));
     return this.state.hosts.filter(host => host.active === true);
   };
 
   setArea = (id, areaName) => {
     this.setState(
-      prevState => ({
-        hosts: prevState.hosts.forEach(host => {
-          if (host.id === id) {
-            host.area = areaName;
-          }
-        })
-      }),
-      () => console.log(this.state)
+      state => {
+        state.hosts.forEach(host => {
+          return host.id === id ? (host.area = areaName) : host;
+        });
+        return { hosts: state.hosts };
+      },
+      () => console.log(this.state.hosts)
     );
   };
 
+  // activateAHost = id => {
+  //   this.setState(
+  //     prevState => ({
+  //       hosts: prevState.hosts.forEach(host => {
+  //         if (host.id === id) {
+  //           host.active = !host.active;
+  //         }
+  //       })
+  //     }),
+  //     () => console.log(this.state.hosts)
+  //   );
+  // };
+
   activateAHost = id => {
-    this.setState(prevState => ({
-      hosts: prevState.hosts.forEach(host => {
-        if (host.id === id) {
-          host.active = !host.active;
-        }
-      })
-    }));
+    const newHosts = [...this.state.hosts];
+    newHosts.forEach(host =>
+      host.id === id ? (host.active = !host.active) : null
+    );
+    this.setState({ hosts: newHosts });
   };
 
   activateAllHosts = activated => {
@@ -83,7 +94,6 @@ class App extends Component {
           // hosts={this.state.hosts}
         />
         <Headquarters
-          // hosts={this.chooseActiveHosts()}
           hosts={this.state.hosts}
           selectedHostId={this.state.selectedHostId}
           areas={this.state.areas}

@@ -26,14 +26,15 @@ const HostInfo = ({ hosts, areas, selectedHost, activateAHost, setArea, addLog})
     // the 'value' attribute is given via Semantic's Dropdown component.
     // Put a debugger in here and see what the "value" variable is when you pass in different options.
     // See the Semantic docs for more info: https://react.semantic-ui.com/modules/dropdown/#usage-controlled
-    debugger
+
     let newArea = areas.find(area => area.name === value);
-    let hostsInArea = hosts.find(host => host.area === value);
+    let hostsInArea = hosts.filter(host => host.area === value);
     if (newArea.limit < hostsInArea.length + 1) {
       addLog(
         Log.error(
           `Too many hosts. Cannot add ${selectedHost.firstName} to ${
-            newArea.namesObject.text
+            // newArea.namesObject.text
+            newArea.name
           }.`
         )
       );
@@ -41,7 +42,7 @@ const HostInfo = ({ hosts, areas, selectedHost, activateAHost, setArea, addLog})
       addLog(
         Log.notify(
           `${selectedHost.firstName} set in area ${
-            newArea.namesObject.text
+            newArea.name
           }`
         )
       );
@@ -61,13 +62,37 @@ const HostInfo = ({ hosts, areas, selectedHost, activateAHost, setArea, addLog})
     activateAHost(selectedHost.id)
   };
 
-const formattedNames = areas.map(area => area.name);
+
+  // const formattedNames = areas.map(area => area.name)
+
+  const formattedNames = areas.map(area => {
+    return  { key: `${area.name}`, text: `${area.name.replace("_", " ")
+  .split(" ")
+  .map(
+    word =>
+      word.charAt(0).toUpperCase() + word.substring(1).toLowerCase()
+  )
+  .join(" ")}`, value: `${area.name}` }})
+
+console.log(formattedNames)
+// { key: "some_area", text: "Some Area", value: "some_area" }
+
+// const formattedNames = function (areas){
+//   let array=[]
+//   for (const i in areas) {
+//     // prettier-ignore
+//     const x = `key: ${i.name}, text: ${i.name.replace("_", " ").split(" ").map( word =>word.charAt(0).toUpperCase() + word.substring(1).toLowerCase()).join(" ")}, value: ${i.name}`
+//     array.push(x)
+//   }
+//   console.log("array=", array)
+//   return array
+// }
 
 return (
   <Grid>
     <Grid.Column width={6}>
       <Image
-        src={selectedHost.img_url}
+        src={selectedHost.imageUrl}
         floated="left"
         size="small"
         className="hostImg"
@@ -97,10 +122,11 @@ return (
           <Divider />
           Current Area:
           <Dropdown
-            onChange={e=>handleChange(e)}
+            onChange={handleChange}
             value={selectedHost.area}
             options={formattedNames}
             selection
+            // 
           />
         </Card.Content>
       </Card>
