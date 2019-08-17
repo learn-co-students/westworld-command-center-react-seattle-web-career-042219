@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./stylesheets/App.css";
 import { Segment } from "semantic-ui-react";
+import WestworldMap from "./components/WestworldMap";
+import Headquarters from "./components/Headquarters";
 
 class App extends Component {
   // As you go through the components given you'll see a lot of functional components.
@@ -8,33 +10,43 @@ class App extends Component {
   // It's up to you whether they should be stateful or not.
 
   state = {
+    areas: [],
     hosts: [],
-    areas: []
+    selectedHostId: null
   };
 
   componentDidMount() {
-    fetch("http://localhost:4000/hosts")
-      .then(res => res.json())
-      .then(res => {
-        console.log(res);
-        return res;
+    Promise.all([
+      fetch("http://localhost:4000/areas"),
+      fetch("http://localhost:4000/hosts")
+    ])
+      .then(([res1, res2]) => Promise.all(res1.json(), res2.json()))
+      .then(([res1, res2]) => {
+        this.setState({ areas: res1, hosts: res2 });
       })
-      .then(res => this.setState({ hosts: res }))
-      .catch(err => console.log(err));
-    fetch("http://localhost:4000/areas")
-      .then(res => res.json())
-      .then(res => {
-        console.log(res);
-        return res;
-      })
-      .then(res => this.setState({ areas: res }))
       .catch(err => console.log(err));
   }
+
+  selectAHost = selectedHost => {
+    this.setState({ selectedHost: selectedHost.id }, () =>
+      console.log(this.state)
+    );
+  };
+
+  chooseActiveHosts = () => {
+    this.state.hosts.filter(host => host.active === true);
+  };
 
   render() {
     return (
       <Segment id="app">
-        {/* What components should go here? Check out Checkpoint 1 of the Readme if you're confused */}
+        <WestworldMap
+          areas={this.state.areas}
+          selectedHostId={this.state.selectedHostId}
+          selectAHost={this.selectAHost}
+          hosts={this.chooseActiveHosts()}
+        />
+        <Headquarters />
       </Segment>
     );
   }
