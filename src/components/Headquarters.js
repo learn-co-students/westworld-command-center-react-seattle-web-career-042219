@@ -6,8 +6,6 @@ import ColdStorage from "./ColdStorage";
 import LogPanel from "./LogPanel";
 
 class Headquarters extends Component {
-  // Remember, there's many ways to do this. This doesn't have to be a class component. It's up to you.
-
   state = {
     activatedAll: false,
     logEvents: []
@@ -62,9 +60,8 @@ class Headquarters extends Component {
         <Grid.Column width={3}>
           {
             <LogPanel
-              activateAllHosts={this.activateAllHosts}
               handleActivate={this.handleActivate}
-              events={this.state.logEvents}
+              logEvents={this.state.logEvents}
               activatedAll={this.state.activatedAll}
               addLog={this.addLog}
             />

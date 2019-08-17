@@ -34,7 +34,6 @@ class App extends Component {
   };
 
   chooseActiveHosts = () => {
-    console.log(this.state.hosts.filter(host => host.active === true));
     return this.state.hosts.filter(host => host.active === true);
   };
 
