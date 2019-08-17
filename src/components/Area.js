@@ -4,7 +4,18 @@ import HostList from "./HostList";
 
 const Area = props => (
   <div className="area" id={props.area.name}>
-    <h3 className="labels">{props.area.name}</h3>
+    <h3 className="labels">
+      {props.area.name
+        ? props.area.name
+            .replace("_", " ")
+            .split(" ")
+            .map(
+              word =>
+                word.charAt(0).toUpperCase() + word.substring(1).toLowerCase()
+            )
+            .join(" ")
+        : null}
+    </h3>
     <HostList
       hosts={props.hosts}
       selectedHostId={props.selectedHostId}
@@ -16,7 +27,7 @@ const Area = props => (
 
 Area.propTypes = {
   hosts: function(props, propName, componentName) {
-    if (props.hosts.length > props.limit) {
+    if (props.hosts && props.hosts.length > props.limit) {
       throw Error(
         `HEY!! You got too many hosts in ${
           props.name
