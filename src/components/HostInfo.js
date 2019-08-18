@@ -50,7 +50,6 @@ const HostInfo = ({ hosts, areas, selectedHost, activateAHost, setArea, addLog})
     }
   }
  
-
   const toggle = () => {
     if (selectedHost.active) {
       addLog(
@@ -74,19 +73,6 @@ const HostInfo = ({ hosts, areas, selectedHost, activateAHost, setArea, addLog})
   )
   .join(" ")}`, value: `${area.name}` }})
 
-console.log(formattedNames)
-// { key: "some_area", text: "Some Area", value: "some_area" }
-
-// const formattedNames = function (areas){
-//   let array=[]
-//   for (const i in areas) {
-//     // prettier-ignore
-//     const x = `key: ${i.name}, text: ${i.name.replace("_", " ").split(" ").map( word =>word.charAt(0).toUpperCase() + word.substring(1).toLowerCase()).join(" ")}, value: ${i.name}`
-//     array.push(x)
-//   }
-//   console.log("array=", array)
-//   return array
-// }
 
 return (
   <Grid>

@@ -71,15 +71,12 @@ class App extends Component {
   };
 
   activateAllHosts = activated => {
-    this.setState(
-      state => ({
-        hosts: state.hosts.map(host => {
-          host.active = activated;
-          return host;
-        })
-      }),
-      () => console.log(this.state.hosts)
-    );
+    this.setState(state => ({
+      hosts: state.hosts.map(host => {
+        host.active = activated;
+        return host;
+      })
+    }));
   };
 
   render() {
@@ -90,7 +87,6 @@ class App extends Component {
           selectedHostId={this.state.selectedHostId}
           selectAHost={this.selectAHost}
           hosts={this.chooseActiveHosts()}
-          // hosts={this.state.hosts}
         />
         <Headquarters
           hosts={this.state.hosts}
