@@ -41,6 +41,7 @@ class Headquarters extends Component {
           {
             <ColdStorage
               hosts={this.renderDecomissionedHosts()}
+              // for testing, to show all hosts
               // hosts={this.props.hosts}
               selectAHost={selectAHost}
               selectedHostId={selectedHostId}

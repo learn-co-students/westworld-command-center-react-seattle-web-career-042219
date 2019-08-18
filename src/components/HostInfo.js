@@ -20,22 +20,17 @@ import { Log } from "../services/Log";
 
 //prettier-ignore
 const HostInfo = ({ hosts, areas, selectedHost, activateAHost, setArea, addLog}) => {
+//prettier-ignore
+  const formatAName=(name)=> {
+    return name.replace("_", " ").split(" ")
+    .map(word => word.charAt(0).toUpperCase() + word.substring(1).toLowerCase()).join(" ")
+  }
 
   const handleChange = (e, { value }) => {
 
     // the 'value' attribute is given via Semantic's Dropdown component.
     // Put a debugger in here and see what the "value" variable is when you pass in different options.
     // See the Semantic docs for more info: https://react.semantic-ui.com/modules/dropdown/#usage-controlled
-
-    const formatAName=(name)=> {
-      return name.replace("_", " ")
-      .split(" ")
-      .map(
-        word =>
-          word.charAt(0).toUpperCase() + word.substring(1).toLowerCase()
-      )
-      .join(" ")
-    }
 
     let newArea = areas.find(area => area.name === value);
     let hostsInArea = hosts.filter(host => host.area === value);
@@ -68,17 +63,8 @@ const HostInfo = ({ hosts, areas, selectedHost, activateAHost, setArea, addLog})
     activateAHost(selectedHost.id)
   };
 
-
-  // const formattedNames = areas.map(area => area.name)
-
   const formattedNames = areas.map(area => {
-    return  { key: `${area.name}`, text: `${area.name.replace("_", " ")
-  .split(" ")
-  .map(
-    word =>
-      word.charAt(0).toUpperCase() + word.substring(1).toLowerCase()
-  )
-  .join(" ")}`, value: `${area.name}` }})
+    return  { key: `${area.name}`, text: `${formatAName(area.name)}`, value: `${area.name}` }})
 
 
 return (

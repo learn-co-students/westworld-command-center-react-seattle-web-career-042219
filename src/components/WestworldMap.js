@@ -9,12 +9,9 @@ const WestworldMap = ({ areas, hosts, selectedHostId, selectAHost }) => {
     });
   };
 
-  // console.log(renderHosts());
-
   const renderAreas = () => {
     return areas.map(area => (
       <Area
-        // value={value}
         name={area.name}
         limit={area.limit}
         key={area.id}
@@ -25,20 +22,6 @@ const WestworldMap = ({ areas, hosts, selectedHostId, selectAHost }) => {
       />
     ));
   };
-  // const renderAreas = () => {
-  //   return areas.map(area => {
-  //     return (
-  //       <Area
-  //         hosts={hosts}
-  //         area={area}
-  //         selectedHostId={selectedHostId}
-  //         selectAHost={selectAHost}
-  //         key={area.id}
-  //         limit={area.limit}
-  //       />
-  //     );
-  //   });
-  // };
 
   return <Segment id="map">{renderAreas()}</Segment>;
 };

@@ -20,7 +20,6 @@ const Area = props => (
       hosts={props.hosts}
       selectedHostId={props.selectedHostId}
       selectAHost={props.selectAHost}
-      // limit={props.area.limit}
     />
   </div>
 );
