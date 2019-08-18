@@ -5,10 +5,6 @@ import WestworldMap from "./components/WestworldMap";
 import Headquarters from "./components/Headquarters";
 
 class App extends Component {
-  // As you go through the components given you'll see a lot of functional components.
-  // But feel free to change them to whatever you want.
-  // It's up to you whether they should be stateful or not.
-
   state = {
     areas: [],
     hosts: [],
@@ -34,20 +30,29 @@ class App extends Component {
   };
 
   chooseActiveHosts = () => {
+    debugger;
     return this.state.hosts.filter(host => host.active === true);
   };
 
+  // makes state.hosts undefined
+
+  // setArea = (id, areaName) => {
+  //   this.setState(prevState => ({
+  //     hosts: prevState.hosts.forEach(host => {
+  //       if (host.id === id) {
+  //         host.area = areaName;
+  //       }
+  //     })
+  //   }));
+  // };
+
   setArea = (id, areaName) => {
-    this.setState(
-      state => {
-        state.hosts.forEach(host => {
-          return host.id === id ? (host.area = areaName) : host;
-        });
-        return { hosts: state.hosts };
-      },
-      () => console.log(this.state.hosts)
-    );
+    const newState = [...this.state.hosts];
+    newState.forEach(host => (host.id === id ? (host.name = areaName) : null));
+    this.setState({ hosts: newState });
   };
+
+  // makes state.hosts undefined
 
   // activateAHost = id => {
   //   this.setState(
@@ -57,8 +62,7 @@ class App extends Component {
   //           host.active = !host.active;
   //         }
   //       })
-  //     }),
-  //     () => console.log(this.state.hosts)
+  //     })
   //   );
   // };
 
@@ -71,12 +75,11 @@ class App extends Component {
   };
 
   activateAllHosts = activated => {
-    this.setState(state => ({
-      hosts: state.hosts.map(host => {
-        host.active = activated;
-        return host;
-      })
-    }));
+    const newHostsActivated = [...this.state.hosts];
+    newHostsActivated.map(host => (host.active = activated));
+    this.setState({
+      hosts: newHostsActivated
+    });
   };
 
   render() {
@@ -86,7 +89,12 @@ class App extends Component {
           areas={this.state.areas}
           selectedHostId={this.state.selectedHostId}
           selectAHost={this.selectAHost}
+          // gives index.js:2178 Warning: Cannot update during an existing state transition
           hosts={this.chooseActiveHosts()}
+          // breaks completely.
+          // hosts={() => {
+          //   this.chooseActiveHosts();
+          // }}
         />
         <Headquarters
           hosts={this.state.hosts}
