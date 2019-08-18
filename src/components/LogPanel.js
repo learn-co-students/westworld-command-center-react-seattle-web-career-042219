@@ -7,9 +7,9 @@ const LogPanel = ({ logEvents, activatedAll, handleActivate, addLog}) => {
  
   const handleClick=()=>{
     if(activatedAll){
-      addLog(Log.notify(`Decommissioned all hosts.`))
+      addLog(Log.notify(`Notify: Decommissiong all hosts.`))
     } else {
-      addLog(Log.notify(`Activated all hosts.`))
+      addLog(Log.notify(`Warn: Activating all hosts!`))
     }
     handleActivate()
   }

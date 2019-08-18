@@ -27,23 +27,30 @@ const HostInfo = ({ hosts, areas, selectedHost, activateAHost, setArea, addLog})
     // Put a debugger in here and see what the "value" variable is when you pass in different options.
     // See the Semantic docs for more info: https://react.semantic-ui.com/modules/dropdown/#usage-controlled
 
+    const formatAName=(name)=> {
+      return name.replace("_", " ")
+      .split(" ")
+      .map(
+        word =>
+          word.charAt(0).toUpperCase() + word.substring(1).toLowerCase()
+      )
+      .join(" ")
+    }
+
     let newArea = areas.find(area => area.name === value);
     let hostsInArea = hosts.filter(host => host.area === value);
     if (newArea.limit < hostsInArea.length + 1) {
       addLog(
         Log.error(
-          `Too many hosts. Cannot add ${selectedHost.firstName} to ${
-            // newArea.namesObject.text
-            newArea.name
+          `Error: Too many hosts. Cannot add ${selectedHost.firstName} to ${
+            formatAName(newArea.name)
           }.`
         )
       );
     } else {
       addLog(
         Log.notify(
-          `${selectedHost.firstName} set in area ${
-            newArea.name
-          }`
+          `${selectedHost.firstName} set in area ${formatAName(newArea.name)}`
         )
       );
       setArea(selectedHost.id, value);
