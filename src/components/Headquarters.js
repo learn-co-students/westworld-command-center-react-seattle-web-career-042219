@@ -40,8 +40,8 @@ class Headquarters extends Component {
         <Grid.Column width={8}>
           {
             <ColdStorage
-              // hosts={this.renderDecomissionedHosts()}
-              hosts={this.props.hosts}
+              hosts={this.renderDecomissionedHosts()}
+              // hosts={this.props.hosts}
               selectAHost={selectAHost}
               selectedHostId={selectedHostId}
             />
@@ -58,14 +58,12 @@ class Headquarters extends Component {
           />
         </Grid.Column>
         <Grid.Column width={3}>
-          {
-            <LogPanel
-              handleActivate={this.handleActivate}
-              logEvents={this.state.logEvents}
-              activatedAll={this.state.activatedAll}
-              addLog={this.addLog}
-            />
-          }
+          <LogPanel
+            logEvents={this.state.logEvents}
+            activatedAll={this.state.activatedAll}
+            handleActivate={this.handleActivate}
+            addLog={this.addLog}
+          />
         </Grid.Column>
       </Grid>
     );
