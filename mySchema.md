@@ -5,7 +5,9 @@
     ------------   ----------
     |                       |
     Area                    Headquarters
-    \                    /      |       \
-    ------- Host List ---     Details   LogPanel
-                |               |
-                Host            Host Info
+        \                /      |       \
+         \       ColdStorage     Details   LogPanel
+          \      |               |
+            ----Host List       Host Info
+                |
+                Host
