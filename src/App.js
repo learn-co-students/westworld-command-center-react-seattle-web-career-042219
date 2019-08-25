@@ -18,8 +18,7 @@ class App extends Component {
     ])
       .then(([res1, res2]) => Promise.all([res1.json(), res2.json()]))
       .then(([res1, res2]) => {
-        return this.setState({ areas: res1, hosts: res2 }
-        );
+        return this.setState({ areas: res1, hosts: res2 });
       })
       .catch(err => console.log(err));
   }
@@ -32,53 +31,38 @@ class App extends Component {
     return this.state.hosts.filter(host => host.active === true);
   };
 
-  // makes state.hosts undefined
-
   setArea = (id, areaName) => {
     this.setState(prevState => ({
       hosts: prevState.hosts.map(host => {
         if (host.id === id) {
           host.area = areaName;
         }
-        return host
+        return host;
       })
     }));
   };
 
-  // setArea = (id, areaName) => {
-  //   const newState = [...this.state.hosts];
-  //   newState.forEach(host => (host.id === id ? (host.name = areaName) : null));
-  //   this.setState({ hosts: newState });
-  // };
-
-  // makes state.hosts undefined
-
-  // activateAHost = id => {
-  //   this.setState(
-  //     prevState => ({
-  //       hosts: prevState.hosts.forEach(host => {
-  //         if (host.id === id) {
-  //           host.active = !host.active;
-  //         }
-  //       })
-  //     })
-  //   );
-  // };
-
   activateAHost = id => {
-    const newHosts = [...this.state.hosts];
-    newHosts.forEach(host =>
-      host.id === id ? (host.active = !host.active) : null
+    this.setState(
+      prevState => ({
+        hosts: prevState.hosts.map(host => {
+          if (host.id === id) {
+            host.active = !host.active;
+          }
+          return host;
+        })
+      }),
+      () => console.log(this.state.hosts)
     );
-    this.setState({ hosts: newHosts });
   };
 
   activateAllHosts = activated => {
-    const newHostsActivated = [...this.state.hosts];
-    newHostsActivated.map(host => (host.active = activated));
-    this.setState({
-      hosts: newHostsActivated
-    });
+    this.setState(prevState => ({
+      hosts: prevState.hosts.map(host => {
+        host.active = activated;
+        return host;
+      })
+    }));
   };
 
   render() {
@@ -110,64 +94,3 @@ class App extends Component {
 }
 
 export default App;
-
-
-// def prime_finder(maximum_number)
-// 	finalArray=[]
-// 	if maximum_number <=2 
-// 			p "Please enter a number greater than 2."
-// 	end
-// 	2.upto(maximum_number) do |i|
-// 			result = false
-// 			2.upto(Math.sqrt(i)) do |j|
-// 					if i % j == 0
-// 							result = true
-// 							break
-// 					end
-// 			end
-// 			result ? nil : finalArray << i
-// 	end
-// 	print "The prime numbers under #{maximum_number} are: \n #{finalArray}\n"
-// end
-
-// prime_finder(100)
-
-
-// import math
-
-// def primes(max_number):
-//     finalAr=[]
-//     if max_number <=2:
-//         return "Please enter a number greater than 2."
-//     for i in range(2, max_number):
-//         result = False
-//         for j in range(2, math.floor(math.sqrt(i))+1):
-//             if i % j == 0:
-//                 result = True
-//                 break
-//         finalAr.append(i) if result == False else None      
-//     print(f'The prime numbers under {max_number} are: \n {finalAr}\n')
-
-// primes (100)
-
-
-// function primeFinder(max_number) {
-//   let finalArray = [];
-//   if (max_number <= 2) {
-//     return "Please enter a number greater than two.";
-//   }
-//   for (let i = 2; i < max_number; i++) {
-//     let result = false;
-//     for (let j = 2; j <= Math.sqrt(i); j++) {
-//       if (i % j === 0) {
-//         result = true;
-//         break;
-//       }
-//     }
-//     result ? null : finalArray.push(i);
-//   }
-//   console.log(`The prime numbers under ${max_number} are: \n ${finalArray}\n`);
-//   return finalArray;
-// }
-
-// console.log(primeFinder(100));

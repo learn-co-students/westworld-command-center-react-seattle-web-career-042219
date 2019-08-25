@@ -32,8 +32,8 @@ const HostInfo = ({ hosts, areas, selectedHost, activateAHost, setArea, addLog})
     // Put a debugger in here and see what the "value" variable is when you pass in different options.
     // See the Semantic docs for more info: https://react.semantic-ui.com/modules/dropdown/#usage-controlled
 
-    let newArea = areas.find(area => area.name === value);
-    let hostsInArea = hosts.filter(host => host.area === value);
+    const newArea = areas.find(area => area.name === value);
+    const hostsInArea = hosts.filter(host => host.area === value);
     if (newArea.limit < hostsInArea.length + 1) {
       addLog(
         Log.error(

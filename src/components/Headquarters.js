@@ -60,6 +60,7 @@ class Headquarters extends Component {
         </Grid.Column>
         <Grid.Column width={3}>
           <LogPanel
+            hosts={hosts}
             logEvents={this.state.logEvents}
             activatedAll={this.state.activatedAll}
             handleActivate={this.handleActivate}
