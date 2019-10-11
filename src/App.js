@@ -13,8 +13,8 @@ class App extends Component {
 
   componentDidMount() {
     Promise.all([
-      fetch("http://localhost:3000/areas"),
-      fetch("http://localhost:3000/hosts")
+      fetch("http://localhost:4000/areas"),
+      fetch("http://localhost:4000/hosts")
     ])
       .then(([res1, res2]) => Promise.all([res1.json(), res2.json()]))
       .then(([res1, res2]) => {
@@ -24,7 +24,9 @@ class App extends Component {
   }
 
   selectAHost = selectedHostIdInput => {
-    this.setState({ selectedHostId: selectedHostIdInput });
+    this.setState({ selectedHostId: selectedHostIdInput }, () =>
+      console.log(this.state)
+    );
   };
 
   chooseActiveHosts = () => {
